@@ -81,7 +81,34 @@ public class SBinTre<T> {
     }
 
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
+        Node<T> p = rot, q = null;               // p starter i roten
+        int cmp = 0;                             // hjelpevariabel
+
+        while (p != null)       // fortsetter til p er ute av treet
+        {
+            q = p;                                 // q er forelder til p
+            cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
+            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+        }
+
+        // p er nå null, dvs. ute av treet, q er den siste vi passerte
+
+        p = new Node<>(verdi, q);                   // oppretter en ny node, endring gjort
+
+        if (q == null) rot = p;                  // p blir rotnode
+        else if (cmp < 0){
+            q.venstre = p;
+            p.forelder = q;
+        }
+        else{
+            p.forelder = q;
+            q.høyre = p;
+        }
+
+        antall++;
+        endringer++;
+        return true;                             // vellykket innlegging
     }
 
     public boolean fjern(T verdi) {
