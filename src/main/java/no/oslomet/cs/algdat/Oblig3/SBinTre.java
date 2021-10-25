@@ -123,7 +123,16 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke ferdig");
+
+        int antall = 0;
+        Node<T> curr = rot;
+        while(curr != null){
+            if(comp.compare(verdi, curr.verdi) == 0) antall++;
+
+            curr = comp.compare(curr.verdi, verdi) > 0 ?  curr.venstre : curr.høyre;
+        }
+
+        return antall;
     }
 
     public void nullstill() {
