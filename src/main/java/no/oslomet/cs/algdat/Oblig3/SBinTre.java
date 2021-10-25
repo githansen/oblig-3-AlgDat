@@ -81,34 +81,35 @@ public class SBinTre<T> {
     }
 
     public boolean leggInn(T verdi) {
+        // Som oppgaven foreslo, er store deler kopiert fra Programkode 5.2.3 a) med noen endringer
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
-        Node<T> p = rot, q = null;               // p starter i roten
-        int cmp = 0;                             // hjelpevariabel
+        Node<T> p = rot, q = null;
+        int cmp = 0;
 
-        while (p != null)       // fortsetter til p er ute av treet
+        while (p != null)
         {
-            q = p;                                 // q er forelder til p
-            cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
-            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+            q = p;
+            cmp = comp.compare(verdi,p.verdi);
+            p = cmp < 0 ? p.venstre : p.høyre;
         }
 
-        // p er nå null, dvs. ute av treet, q er den siste vi passerte
 
-        p = new Node<>(verdi, q);                   // oppretter en ny node, endring gjort
 
-        if (q == null) rot = p;                  // p blir rotnode
+        p = new Node<>(verdi, q);
+
+        if (q == null) rot = p;     //Dersom treet er tomt settes roten til p og vi er ferdig med innleggingen
         else if (cmp < 0){
-            q.venstre = p;
-            p.forelder = q;
+            q.venstre = p; //Setter noden inn på riktig plass
+            p.forelder = q; //Setter foreldre-pekeren, , endring fra programkode
         }
         else{
-            p.forelder = q;
-            q.høyre = p;
+            p.forelder = q; //Setter foreldre-pekeren, , endring fra programkode
+            q.høyre = p; //Setter noden inn på riktig plass
         }
 
-        antall++;
-        endringer++;
-        return true;                             // vellykket innlegging
+        antall++; //Øker antall
+        endringer++; //Øker endringer
+        return true;
     }
 
     public boolean fjern(T verdi) {
