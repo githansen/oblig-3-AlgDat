@@ -141,11 +141,22 @@ public class SBinTre<T> {
 
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        while(true){
+            if(p.venstre != null) p = p.venstre;
+            else if(p.høyre != null) p = p.høyre;
+            else return p;
+        }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //Metoden følger instruks fra Kap. 5.1.7 i kompendiet.
+        if(p.forelder == null) return null; //Dersom p er rot-noden returneres null da dette er siste noden i postorden
+        if(p.forelder.høyre == p) p = p.forelder; //Dersom p er høyre-barnet til sin forelder, er foreldernoden neste
+        else if(p.forelder.venstre == p){  //Ellers gjelder følgende:
+            if(p.forelder.høyre == null) p = p.forelder; //Dersom p er enebarn er forelderen den neste
+            else p = førstePostorden(p.forelder.høyre); //Dersom p ikke er enebarn, er neste tall første i postorden med høyrebarnet som rotnode
+        }
+        return p;
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
