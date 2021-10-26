@@ -180,11 +180,27 @@ public class SBinTre<T> {
             oppgave.utførOppgave(p.verdi);
         }
     }
-    public ArrayList<T> serialize() {throw new UnsupportedOperationException("Ikke kodet ennå!");
+    public ArrayList<T> serialize() {
+        //Lignende kode ble gjennomgått i videoforelesning uke 42.
+        ArrayList<T> liste = new ArrayList<>(); //Arraylisten som skal returneres
+        ArrayDeque<Node<T>> kø = new ArrayDeque<>(); //Hjelpekø
+        kø.addFirst(rot); //Legger først til roten
+        while(!kø.isEmpty()){
+            Node<T> curr = kø.removeFirst(); //Fjerner den første i køen
+            if(curr.venstre != null) kø.addLast(curr.venstre); //Legger til venstre node i køen
+            if(curr.høyre != null)kø.addLast(curr.høyre); //Legger til høyre node i køen
+            liste.add(curr.verdi); //Legger til i listen som skal returneres
+        }
+        return liste;
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        SBinTre<K> bintre = new SBinTre<>(c); //binærtreet som skal returneres
+        for(int i = 0; i < data.size(); i++){
+            bintre.leggInn(data.get(i)); //Legger inn i binærtreet
+        }
+
+        return bintre;
     }
 
 
