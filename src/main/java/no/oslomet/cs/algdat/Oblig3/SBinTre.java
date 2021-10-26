@@ -114,7 +114,7 @@ public class SBinTre<T> {
 
     public boolean fjern(T verdi) {
 
-     throw new UnsupportedOperationException("Ikke ferdig");
+     throw new UnsupportedOperationException("Ikke ferdigd");
         }
 
 
@@ -196,8 +196,8 @@ public class SBinTre<T> {
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
         SBinTre<K> bintre = new SBinTre<>(c); //binærtreet som skal returneres
-        for(int i = 0; i < data.size(); i++){
-            bintre.leggInn(data.get(i)); //Legger inn i binærtreet
+        for(K i : data){
+            bintre.leggInn(i); //Legger inn i binærtreet
         }
 
         return bintre;
