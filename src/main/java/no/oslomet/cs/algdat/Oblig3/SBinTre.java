@@ -160,15 +160,25 @@ public class SBinTre<T> {
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node <T> curr = førstePostorden(rot); //finner første node i postorden
+        while(curr != null){
+            oppgave.utførOppgave(curr.verdi);
+            curr = nestePostorden(curr); //Gjør noden curr om til den neste i postorden
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
-        postordenRecursive(rot, oppgave);
+
+        postordenRecursive(rot, oppgave); //Kaller den private metoden med rot som startNode
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //metoden ble gjennomgått i forelesninger uke 42, video "Dybde først-traversering, denne er ca. lik
+        if(p != null) {
+            postordenRecursive(p.venstre, oppgave);
+            postordenRecursive(p.høyre, oppgave);
+            oppgave.utførOppgave(p.verdi);
+        }
     }
     public ArrayList<T> serialize() {throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
