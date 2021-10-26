@@ -114,12 +114,76 @@ public class SBinTre<T> {
 
     public boolean fjern(T verdi) {
 
-     throw new UnsupportedOperationException("Ikke ferdigd");
+        if (verdi == null) return false;  // treet har ingen nullverdier
+        Node<T> p = rot, q = null;   // q skal være forelder til p
+
+        while (p != null)            // leter etter verdi
+        {
+            int cmp = comp.compare(verdi,p.verdi);      // sammenligner
+            if (cmp < 0) { q = p; p = p.venstre; }      // går til venstre
+            else if (cmp > 0) { q = p; p = p.høyre; }   // går til høyre
+            else break;    // den søkte verdien ligger i p
+        }
+        if (p == null) return false;   // finner ikke verdi
+
+        if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
+        {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
+            if (p == rot){ //Dersom roten skal fjernes
+                rot = b;
+                if(b != null) {
+                    b.forelder = null;
+                }
+            }
+            else if (p == q.venstre) {
+                q.venstre = b;
+                if(b != null) {
+                    b.forelder = q;
+                }
+            }
+            else {
+                q.høyre = b;
+                if(b != null) {
+                    b.forelder = q;
+                }
+            }
+        }
+        else  // Tilfelle 3)
+        {
+            Node<T> s = p, r = p.høyre;   // finner neste i inorden
+            while (r.venstre != null)
+            {
+                s = r;    // s er forelder til r
+                r = r.venstre;
+            }
+            p.verdi = r.verdi;   // kopierer verdien i r til p
+
+            if (s != p){
+                s.venstre = r.høyre;
+                if(r.høyre != null) r.høyre.forelder = s;
+            }
+            else{
+                s.høyre = r.høyre;
+                if(r.høyre != null) r.høyre.forelder = s;
+            }
+            if(r == rot) { //Dersom roten er den som skal fjernes
+                rot = s;
+                s.forelder = null;
+            }
+        }
+
+        antall--;   // det er nå én node mindre i treet
+        endringer++;
+        return true;
         }
 
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke ferdig");
+        int antallfjernet = 0;
+        while(fjern(verdi)){
+            antallfjernet ++;
+        }
+        return antallfjernet;
     }
 
     public int antall(T verdi) {
@@ -136,7 +200,18 @@ public class SBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        antall = 0;
+        slettalle(rot);
+        rot = null;
+    }
+    private void slettalle(Node<T> curr){
+        if(curr == null)return; //basistilfelle
+        if(curr.venstre!= null) slettalle(curr.venstre);
+        if(curr.høyre != null)slettalle(curr.høyre);
+        curr.venstre = null;
+        curr.høyre = null;
+        curr.verdi=null;
+        curr.forelder = null;
     }
 
 
