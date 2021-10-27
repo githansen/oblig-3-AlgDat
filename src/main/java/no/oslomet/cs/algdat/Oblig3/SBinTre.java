@@ -100,10 +100,8 @@ public class SBinTre<T> {
         if (q == null) rot = p;     //Dersom treet er tomt settes roten til p og vi er ferdig med innleggingen
         else if (cmp < 0){
             q.venstre = p; //Setter noden inn på riktig plass
-            p.forelder = q; //Setter foreldre-pekeren, , endring fra programkode
         }
         else{
-            p.forelder = q; //Setter foreldre-pekeren, , endring fra programkode
             q.høyre = p; //Setter noden inn på riktig plass
         }
 
