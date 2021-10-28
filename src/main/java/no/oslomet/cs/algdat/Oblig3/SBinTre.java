@@ -156,18 +156,8 @@ public class SBinTre<T> {
             }
             p.verdi = r.verdi;   // kopierer verdien i r til p
 
-            if (s != p){
-                s.venstre = r.høyre;
-                if(r.høyre != null) r.høyre.forelder = s;
-            }
-            else{
-                s.høyre = r.høyre;
-                if(r.høyre != null) r.høyre.forelder = s;
-            }
-            if(r == rot) { //Dersom roten er den som skal fjernes
-                rot = s;
-                s.forelder = null;
-            }
+            if (s != p) s.venstre = r.høyre;
+            else s.høyre = r.høyre;
         }
 
         antall--;   // det er nå én node mindre i treet
