@@ -135,14 +135,14 @@ public class SBinTre<T> {
             }
             else if (p == q.venstre) {
                 q.venstre = b;
-                if(b != null) {
-                    b.forelder = q;
+                if(b != null) { //ENDRING FRA PROGRAMKODE
+                    b.forelder = q; //ENDRING FRA PROGRAMKODE, setter foreldrenoden
                 }
             }
             else {
                 q.høyre = b;
-                if(b != null) {
-                    b.forelder = q;
+                if(b != null) { //ENDRING FRA PROGRAMKODE
+                    b.forelder = q; //ENDRING FRA PROGRAMKODE, setter foreldrenoden
                 }
             }
         }
@@ -161,7 +161,7 @@ public class SBinTre<T> {
         }
 
         antall--;   // det er nå én node mindre i treet
-        endringer++;
+        endringer++; //ENDRING FRA PROGRAMKODE, øker endringer-variabelen
         return true;
         }
 
@@ -196,10 +196,7 @@ public class SBinTre<T> {
         if(curr == null)return; //basistilfelle
         if(curr.venstre!= null) slettalle(curr.venstre);
         if(curr.høyre != null)slettalle(curr.høyre);
-        curr.venstre = null;
-        curr.høyre = null;
-        curr.verdi=null;
-        curr.forelder = null;
+        curr = null;
     }
 
 
