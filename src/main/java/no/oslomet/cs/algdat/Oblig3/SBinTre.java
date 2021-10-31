@@ -204,10 +204,11 @@ public class SBinTre<T> {
 
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        //Her brukes samme prinsippet som i programkode 5.1.7 h)
         while(true){ //Første i postorden er noden som er helt til venstre i treet
-            if(p.venstre != null) p = p.venstre;
+            if(p.venstre != null) p = p.venstre; //Hvis venstrebarnet finnes går vi dit
             else if(p.høyre != null) p = p.høyre;
-            else return p;
+            else return p; //Noden helt til venstre returneres
         }
     }
 
