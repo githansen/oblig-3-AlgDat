@@ -44,18 +44,18 @@ public class SBinTre<T> {
     }
 
     public boolean inneholder(T verdi) {
-        if (verdi == null) return false;
+        if (verdi == null) return false; //Sjekker om verdien er null
 
-        Node<T> p = rot;
+        Node<T> p = rot; //Starter i roten
 
         while (p != null) {
-            int cmp = comp.compare(verdi, p.verdi);
-            if (cmp < 0) p = p.venstre;
-            else if (cmp > 0) p = p.høyre;
-            else return true;
+            int cmp = comp.compare(verdi, p.verdi); //Sammenligner nåværende node med verdi
+            if (cmp < 0) p = p.venstre; //Sjekker om verdien er mindre enn verdien til nåværende node, om ja går den til venstrebarnet
+            else if (cmp > 0) p = p.høyre; //Sjekker om verdien er større enn verdien til nåværende node, om ja går den til høyrebarnet
+            else return true; //OM verdien er lik verdi i nåværende node returneres true
         }
 
-        return false;
+        return false; //Hele treet er gått gjennom uten å finne verdien, returner false
     }
 
     public int antall() {
@@ -69,8 +69,8 @@ public class SBinTre<T> {
 
         Node<T> p = førstePostorden(rot); // går til den første i postorden
         while (p != null) {
-            s.add(p.verdi.toString());
-            p = nestePostorden(p);
+            s.add(p.verdi.toString()); //Legger til i stringjoineren
+            p = nestePostorden(p); //Går til neste i postorden
         }
 
         return s.toString();
@@ -88,14 +88,14 @@ public class SBinTre<T> {
 
         while (p != null)
         {
-            q = p;
-            cmp = comp.compare(verdi,p.verdi);
-            p = cmp < 0 ? p.venstre : p.høyre;
+            q = p;                                 // q er forelder til p
+            cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
+            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
         }
 
 
 
-        p = new Node<>(verdi, q);
+        p = new Node<>(verdi, q); //ENDRING FRA PROGRAMKODE. Konstruktøren her setter foreldrenoden.
 
         if (q == null) rot = p;     //Dersom treet er tomt settes roten til p og vi er ferdig med innleggingen
         else if (cmp < 0){
@@ -106,12 +106,12 @@ public class SBinTre<T> {
         }
 
         antall++; //Øker antall
-        endringer++; //Øker endringer
+        endringer++; //Øker endringer, ENDRING FRA PROGRAMKODE
         return true;
     }
 
     public boolean fjern(T verdi) {
-
+        //Kopiert kildekode og kommentarer fra 5.2.8, endringer er kommentert
         if (verdi == null) return false;  // treet har ingen nullverdier
         Node<T> p = rot, q = null;   // q skal være forelder til p
 
@@ -167,36 +167,39 @@ public class SBinTre<T> {
 
 
     public int fjernAlle(T verdi) {
-        int antallfjernet = 0;
-        while(fjern(verdi)){
-            antallfjernet ++;
+        int antallfjernet = 0; //Variabel for å se hvor mange som er fjernet
+        while(fjern(verdi)){ //Fjerner verdi helt til vi får false tilbake
+            antallfjernet ++; //Øker variabelen antall fjernet
         }
         return antallfjernet;
     }
 
     public int antall(T verdi) {
 
-        int antall = 0;
+        int antallverdier = 0; //Teller
         Node<T> curr = rot;
         while(curr != null){
-            if(comp.compare(verdi, curr.verdi) == 0) antall++;
-
-            curr = comp.compare(curr.verdi, verdi) > 0 ?  curr.venstre : curr.høyre;
+            if(comp.compare(verdi, curr.verdi) == 0) antallverdier++; //Dersom vi finner en node med lik verdi, øker telleren
+            curr = comp.compare(curr.verdi, verdi) > 0 ?  curr.venstre : curr.høyre; //Trenger ikke iterere gjennom alle verdier, bruker at verdier større enn eller lik må plasseres til høyre og motsatt
         }
 
-        return antall;
+        return antallverdier;
     }
 
     public void nullstill() {
+        //Gjør antall til 0 og rot til null, kaller så den rekursive metoden som nuller alle noder
         antall = 0;
         slettalle(rot);
         rot = null;
+        endringer ++;
     }
     private void slettalle(Node<T> curr){
+        //Rekursiv metode, går innom alle noder og setter de til null
         if(curr == null)return; //basistilfelle
         if(curr.venstre!= null) slettalle(curr.venstre);
         if(curr.høyre != null)slettalle(curr.høyre);
-        curr = null;
+        curr.venstre = curr.høyre = curr.forelder = null;
+        curr.verdi = null;
     }
 
 
