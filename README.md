@@ -6,6 +6,8 @@ Johan Hustoft Hansen, S349880, s349880@oslomet.no
 
 
 # Oppgavebeskrivelse
+Oppgaven har 3 warnings, alle for non-ascii characters i metoder/tester som allerede er laget. 
+
 
 I oppgave 1 så gikk jeg frem ved å kopiere inn programkode 5.2.3 a) slik oppgaven foreslo. Den eneste endringen som måtte gjøres var å bruke konstruktøren som setter foreldrenoden samtidig. Endringen fra programkoden er gjort på linje 98.
 
