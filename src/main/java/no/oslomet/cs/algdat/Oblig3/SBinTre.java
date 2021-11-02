@@ -248,7 +248,7 @@ public class SBinTre<T> {
         //Lignende kode ble gjennomgått i videoforelesning uke 42.
         ArrayList<T> liste = new ArrayList<>(); //Arraylisten som skal returneres
         ArrayDeque<Node<T>> kø = new ArrayDeque<>(); //Hjelpekø
-        kø.addFirst(rot); //Legger først til roten
+        kø.addLast(rot); //Legger først til roten
         while(!kø.isEmpty()){
             Node<T> curr = kø.removeFirst(); //Fjerner den første i køen
             if(curr.venstre != null) kø.addLast(curr.venstre); //Legger til venstre node i køen
