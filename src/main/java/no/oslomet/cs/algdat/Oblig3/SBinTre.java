@@ -167,11 +167,11 @@ public class SBinTre<T> {
 
 
     public int fjernAlle(T verdi) {
-        int antallfjernet = 0; //Variabel for å se hvor mange som er fjernet
+        int fantall = 0; //Variabel for å se hvor mange som er fjernet
         while(fjern(verdi)){ //Fjerner verdi helt til vi får false tilbake
-            antallfjernet ++; //Øker variabelen antall fjernet
+            fantall ++; //Øker variabelen antall fjernet
         }
-        return antallfjernet;
+        return fantall;
     }
 
     public int antall(T verdi) {
