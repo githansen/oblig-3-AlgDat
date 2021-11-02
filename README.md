@@ -41,6 +41,8 @@ I videoforelesning fra uke 42, ble det gjennomgått hvordan man kan skrive ut et
 Deserialize(): 
 Denne metoden er enkel å implementere. Jeg starter med å opprette et tomt binærtre, for så å legge til verdier i det treet. Starter fra indeks 0 til jeg har gått gjennom hele arrayet. 
 
+NB! ArrayDeque har blitt brukt istedenfor kø. Jeg har kun brukt metoder som er lovlig i kø, dvs. addlast, removefirst etc.
+
 Oppgave 6: 
 public boolean fjern(T verdi): 
 Slik oppgaven foreslo, har jeg kopiert programkode 5.2.8 d) med noen endringer.
